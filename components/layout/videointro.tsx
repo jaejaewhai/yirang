@@ -7,7 +7,6 @@ const videos = [
   "/videos/intro/imjingang.mp4",
   "/videos/intro/everyonehatesme.mov",
   "/videos/intro/playinggod.mov",
-  "/videos/intro/propeller.mov",
 ]
 
 export default function VideoIntro() {

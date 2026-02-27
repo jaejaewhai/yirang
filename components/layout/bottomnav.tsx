@@ -5,11 +5,10 @@ import Link from "next/link"
 const navItems = [
   { label: "About", href: "/about" },
   { label: "Illustrations", href: "/illustrations" },
-  { label: "Comics", href: "/comics" },
   { label: "Books", href: "/books" },
   { label: "Essays", href: "/essays" },
-  { label: "Discography", href: "/discography" },
-  { label: "Store", href: "/merch" },
+  { label: "Music", href: "/music" },
+  { label: "Store", href: "/store" },
 ]
 
 export default function BottomNav() {
