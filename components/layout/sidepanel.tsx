@@ -1,32 +1,27 @@
 "use client"
 
 import Image from "next/image"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import gsap from "gsap"
 
 export default function SidePanel() {
   const logoRef = useRef<HTMLDivElement>(null)
   const textRef = useRef<HTMLDivElement>(null)
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
-    // start both elements near the center
+    const checkMobile = () => setIsMobile(window.innerWidth < 1117)
+    checkMobile()
+    window.addEventListener("resize", checkMobile)
+    return () => window.removeEventListener("resize", checkMobile)
+  }, [])
+
+  useEffect(() => {
     gsap.set(logoRef.current, { x: -600, opacity: 1 })
     gsap.set(textRef.current, { x: 600, opacity: 1 })
 
-    // animate to their final positions
-    gsap.to(logoRef.current, {
-      x: 0,
-      duration: 2,
-      delay: 2,
-      ease: "power3.out",
-    })
-
-    gsap.to(textRef.current, {
-      x: 0,
-      duration: 2,
-      delay: 2,
-      ease: "power3.out",
-    })
+    gsap.to(logoRef.current, { x: 0, duration: 2, delay: 2, ease: "power3.out" })
+    gsap.to(textRef.current, { x: 0, duration: 2, delay: 2, ease: "power3.out" })
   }, [])
 
   return (
@@ -34,12 +29,20 @@ export default function SidePanel() {
       {/* Right Panel - Logo */}
       <div
         className="fixed right-0 top-0 h-full w-1/6 flex flex-col items-center justify-center gap-6 px-4"
-        style={{ mixBlendMode: "difference", zIndex: 2 }}
+        style={{ mixBlendMode: "difference", zIndex: 201, pointerEvents: "none" }}
       >
-        <div ref={logoRef} className="relative w-60 h-40">
+        <div
+          ref={logoRef}
+          className="relative pointer-events-none"
+          style={{
+            width: isMobile ? "clamp(9rem, 12vw, 26vw)" : "15vw",
+            height: isMobile ? "clamp(5rem, 6vw, 12vw)" : "10vw",
+            transition: "width 0.3s ease, height 0.3s ease",
+          }}
+        >
           <Image
             src="/langlee_logo_type_white.png"
-            alt="Artist logo"
+            alt="Lang Lee logo"
             fill
             className="object-cover logo-rotate"
           />
@@ -49,10 +52,20 @@ export default function SidePanel() {
       {/* Left Panel - Text */}
       <div
         className="fixed left-0 top-0 h-full w-1/6 flex flex-col items-center justify-center gap-6 px-4"
-        style={{ mixBlendMode: "difference", zIndex: 2 }}
+        style={{ mixBlendMode: "difference", zIndex: 201, pointerEvents: "none" }}
       >
         <div ref={textRef} className="text-center">
-          <h1 className="tracking-widest uppercase text-8xl h-40 flex items-center text-white">
+          <h1
+            className="tracking-widest uppercase text-white pointer-events-none flex items-center"
+            style={{
+              pointerEvents: "none",
+              fontSize: isMobile ? "clamp(4rem, 3vw, 4rem)" : "clamp(1.5rem, 6vw, 8rem)",
+              lineHeight: 1,
+              writingMode: isMobile ? "vertical-rl" : "horizontal-tb",
+              textOrientation: "mixed",
+              transition: "font-size 0.3s ease",
+            }}
+          >
             이랑
           </h1>
         </div>

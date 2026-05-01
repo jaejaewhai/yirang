@@ -1,16 +1,25 @@
+"use client"
+
 import VideoIntro from "@/components/layout/videointro"
-import BottomNav from "@/components/layout/bottomnav"
-import SidePanel from "@/components/layout/sidepanel"
-import TopNav from "@/components/layout/topnav"
+import AboutPage from "@/components/about/about"
+import WorksPage from "@/components/works/works"
+import MusicOverlay from "@/components/music/musicoverlay"
+import BooksPage from "@/components/books/books"
+import { useSection } from "@/lib/context/SectionContext"
 
 export default function Home() {
+  const { activeSection } = useSection()
+
+  const isOverlay = activeSection === "works" || activeSection === "about" || activeSection === "music" || activeSection === "books" 
+
   return (
     <main className="relative">
-      <VideoIntro />
-      <SidePanel />
-      <BottomNav />
-      <TopNav />
-      <div className="h-[200vh]" />
+      {activeSection === "music" && <MusicOverlay onClose={() => {}} />}
+      {activeSection === "about" && <AboutPage />}
+      {activeSection === "works" && <WorksPage />}
+      {activeSection === "books" && <BooksPage />}
+      {!activeSection && <VideoIntro />}
+      {!isOverlay && <div className="h-[200vh]" />}
     </main>
   )
 }

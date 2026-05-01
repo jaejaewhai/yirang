@@ -1,11 +1,13 @@
-import type { Metadata } from "next";
-import Script from "next/script";
-import "./globals.css";
+"use client"
 
-export const metadata: Metadata = {
-  title: "Lee Lang",
-  description: "Official website of Lee Lang",
-};
+import Script from "next/script"
+import BlurVignette from "@/components/layout/BlurVignette"
+import BottomNav from "@/components/layout/bottomnav"
+import SidePanel from "@/components/layout/sidepanel"
+import TopNav from "@/components/layout/topnav"
+import PageTransition from "@/components/layout/PageTransition"
+import { SectionProvider } from "@/lib/context/SectionContext"
+import "./globals.css"
 
 export default function RootLayout({
   children,
@@ -29,8 +31,16 @@ export default function RootLayout({
             })(document);`
           }}
         />
-        {children}
+        <SectionProvider>
+          <SidePanel />
+          <TopNav />
+          <BlurVignette />
+          <BottomNav />
+          <PageTransition>
+            {children}
+          </PageTransition>
+        </SectionProvider>
       </body>
     </html>
-  );
+  )
 }

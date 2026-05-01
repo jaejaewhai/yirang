@@ -74,7 +74,7 @@ export default function VideoIntro() {
   }
 
   return (
-    <div className="fixed inset-0 video-shrink-container" style={{ zIndex: 1 }}>
+    <div className="fixed inset-0 video-shrink-container" style={{ zIndex: 54 }}>
       <video ref={videoRef} className="hidden" loop muted playsInline />
       <canvas
         ref={canvasRef}

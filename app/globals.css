@@ -14,12 +14,42 @@ body {
   transition: opacity 0.3s ease;
 }
 
+nav, header {
+  user-select: none;
+}
+
+@layer utilities {
+  .text-outlined {
+    color: transparent;
+    -webkit-text-stroke: 0.05rem white;
+    paint-order: stroke fill;
+    text-rendering: geometricPrecision;
+    -webkit-font-smoothing: subpixel-antialiased;
+  }
+}
+
+button {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  outline: 1px solid transparent;
+  transform: translateZ(0);
+  -webkit-font-smoothing: antialiased;
+}
+
 .wf-active body {
   opacity: 1;
 }
 
+.heading-blur {
+  opacity: 0;
+}
+
 h1 {
   unicode-bidi: normal;
+}
+
+.section-overlay::-webkit-scrollbar {
+  display: none;
 }
 
 .video-shrink-container {
@@ -49,4 +79,19 @@ h1 {
   .logo-rotate {
     transform: rotate(90deg);
   }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0 }
+  to { opacity: 1 }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.font-alientz {
+  font-family: "tt-alientz-serif", sans-serif;
+  font-weight: 700;
+  font-style: normal;
 }
