@@ -12,16 +12,16 @@ export default function PageTransition({ children }: { children: React.ReactNode
     if (!overlay) return
 
     overlay.style.transition = "none"
-    overlay.style.backdropFilter = "blur(60px)"
-    overlay.style.WebkitBackdropFilter = "blur(60px)"
+    overlay.style.backdropFilter = "blur(60px)";
+    (overlay.style as any).WebkitBackdropFilter = "blur(60px)";
     overlay.style.opacity = "1"
 
     overlay.getBoundingClientRect()
 
     requestAnimationFrame(() => {
       overlay.style.transition = "backdrop-filter 1.1s ease, opacity 0.4s ease 0.7s"
-      overlay.style.backdropFilter = "blur(0px)"
-      overlay.style.WebkitBackdropFilter = "blur(0px)"
+      overlay.style.backdropFilter = "blur(60px)";
+      (overlay.style as any).WebkitBackdropFilter = "blur(60px)";
       overlay.style.opacity = "0"
     })
   }, [activeSection]) // ← watches section switches, not URL
