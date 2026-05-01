@@ -110,6 +110,7 @@ useEffect(() => {
     if (!isMobile) return
     const strip = singleStripRef.current
     if (!strip) return
+
     const totalH = window.innerHeight * allImages.length
     const tween = gsap.to(strip, {
       y: -totalH,
@@ -117,7 +118,7 @@ useEffect(() => {
       ease: "none",
       repeat: -1,
     })
-    return () => tween.kill()
+    return () => { tween.kill() }
   }, [isMobile])
 
   // Text animations
