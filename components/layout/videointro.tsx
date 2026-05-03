@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import Lenis from "lenis"
 
 const videos = [
@@ -13,6 +13,7 @@ const videos = [
 export default function VideoIntro() {
   const videoRef = useRef<HTMLVideoElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
+  const [ready, setReady] = useState(false)
 
   useEffect(() => {
     const video = videoRef.current
@@ -47,7 +48,10 @@ export default function VideoIntro() {
       animId = requestAnimationFrame(draw)
     }
 
-    video.addEventListener("play", draw)
+    video.addEventListener("play", () => {
+      setReady(true)
+      draw()
+    })
 
     const lenis = new Lenis()
     const raf = (time: number) => {
@@ -76,6 +80,18 @@ export default function VideoIntro() {
 
   return (
     <div className="fixed inset-0 video-shrink-container" style={{ zIndex: 54 }}>
+      {/* Black overlay while loading */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "black",
+          zIndex: 1,
+          opacity: ready ? 0 : 1,
+          transition: "opacity 0.6s ease",
+          pointerEvents: "none",
+        }}
+      />
       <video ref={videoRef} className="hidden" loop muted playsInline />
       <canvas
         ref={canvasRef}
