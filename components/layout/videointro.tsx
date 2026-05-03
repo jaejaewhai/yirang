@@ -4,9 +4,10 @@ import { useEffect, useRef } from "react"
 import Lenis from "lenis"
 
 const videos = [
-  "/videos/intro/imjingang.mp4",
-  "/videos/intro/everyonehatesme.mov",
-  "/videos/intro/playinggod.mov",
+  "https://pub-6973547200b1494fb068fd0a65cab466.r2.dev/videos/intro/imjingang.mp4",
+  "https://pub-6973547200b1494fb068fd0a65cab466.r2.dev/videos/intro/everyonehatesme.mp4",
+  "https://pub-6973547200b1494fb068fd0a65cab466.r2.dev/videos/intro/playinggod.mp4",
+  "https://pub-6973547200b1494fb068fd0a65cab466.r2.dev/videos/intro/propeller.mp4",
 ]
 
 export default function VideoIntro() {
