@@ -10,7 +10,15 @@ import { awards, films, publications, tours, press } from "@/lib/data/about"
 gsap.registerPlugin(ScrollTrigger)
 
 const sections = ["Bio", "Film & Video", "Publications", "Live & Tours", "Press", "Awards"]
-const headingText = "이랑 · 李瀧 · イ‧ラン · b. 1986, Seoul"
+const headingText = (
+  <>
+    이랑 · 李瀧 · イ‧ラン
+    <br />
+    Lang Lee 
+    <br />
+    b. 1986, Seoul
+  </>
+)
 
 const leftImages  = Array.from({ length: 12 }, (_, i) => `/images/about/${i + 1}.jpg`)
 const rightImages = Array.from({ length: 12 }, (_, i) => `/images/about/${i + 13}.jpg`)
@@ -336,77 +344,77 @@ useEffect(() => {
         )}
       </div>
 
-      {/* Foreground text content — hidden when section active */}
-      {!activeSection && (
+        {/* Foreground text content — hidden when section active */}
+        {!activeSection && (
         <div style={{ position: "relative", zIndex: 10 }}>
             <section className="h-[150vh] flex items-end justify-center px-8 pb-32">
-            <div style={{ position: "relative" }}>
-                <h1 aria-hidden className="max-w-4xl text-center leading-none text-5xl md:text-5xl lg:text-8xl" style={{ position: "absolute", inset: 0, color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none" }}>
+            <div style={{ display: "grid", width: "clamp(20rem, 80vw, 40rem)" }}>
+                <h1 aria-hidden className="text-center leading-none text-4xl md:text-4xl lg:text-6xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none", pointerEvents: "none" }}>
                 {headingText}
                 </h1>
-                <h1 ref={headingRef} className="max-w-4xl text-center text-outlined leading-none text-5xl md:text-5xl lg:text-8xl" style={{ color: "rgba(255,255,255,0.2)" }}>
+                <h1 ref={headingRef} className="text-center text-outlined leading-none text-4xl md:text-4xl lg:text-6xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.2)" }}>
                 {headingText}
                 </h1>
             </div>
             </section>
             <section className="pt-24 pb-32">
-            <div ref={bioRef} className="max-w-4xl mx-auto flex flex-col space-y-5 px-6 md:px-0">
+            <div ref={bioRef} style={{ width: "clamp(20rem, 80vw, 40rem)", margin: "0 auto" }} className="flex flex-col space-y-5 px-6 md:px-0">
                 <div ref={bioTextRef} className="flex flex-col space-y-5">
-                    <div className="h-screen flex items-center justify-center">
+                <div className="h-screen flex items-center justify-center">
                     <div style={{ display: "grid" }}>
-                        <p aria-hidden className="text-center leading-none text-5xl md:text-5xl lg:text-8xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none", pointerEvents: "none" }}>
+                    <p aria-hidden className="text-center leading-none text-4xl md:text-4xl lg:text-6xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none", pointerEvents: "none" }}>
                         {widont("singer-songwriter, essayist, author, and filmmaker.")}
-                        </p>
-                        <p className="text-center text-outlined leading-none text-5xl md:text-5xl lg:text-8xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.2)" }}>
+                    </p>
+                    <p className="text-center text-outlined leading-none text-4xl md:text-4xl lg:text-6xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.2)" }}>
                         {widont("singer-songwriter, essayist, author, and filmmaker.")}
-                        </p>
+                    </p>
                     </div>
-                    </div>
+                </div>
                 <div className="h-screen flex items-center justify-center">
-                    <div style={{ position: "relative" }}>
-                    <p aria-hidden className="text-center leading-none text-5xl md:text-5xl lg:text-8xl" style={{ position: "absolute", inset: 0, color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none" }}>
+                    <div style={{ display: "grid" }}>
+                    <p aria-hidden className="text-center leading-none text-4xl md:text-4xl lg:text-6xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none", pointerEvents: "none" }}>
                         {widont("With candid and unflinching approach to art,")}
                     </p>
-                    <p className="text-center text-outlined leading-none text-5xl md:text-5xl lg:text-8xl" style={{ color: "rgba(255,255,255,0.2)" }}>
+                    <p className="text-center text-outlined leading-none text-4xl md:text-4xl lg:text-6xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.2)" }}>
                         {widont("With candid and unflinching approach to art,")}
                     </p>
                     </div>
                 </div>
                 <div className="h-screen flex items-center justify-center">
-                    <div style={{ position: "relative" }}>
-                    <p aria-hidden className="text-center leading-none text-5xl md:text-5xl lg:text-8xl" style={{ position: "absolute", inset: 0, color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none" }}>
+                    <div style={{ display: "grid" }}>
+                    <p aria-hidden className="text-center leading-none text-4xl md:text-4xl lg:text-6xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none", pointerEvents: "none" }}>
                         {widont("Lang faces the unbearable weight of living in all its forms, and wrestles with what words and verses can honestly hold.")}
                     </p>
-                    <p className="text-center text-outlined leading-none text-5xl md:text-5xl lg:text-8xl" style={{ color: "rgba(255,255,255,0.2)" }}>
+                    <p className="text-center text-outlined leading-none text-4xl md:text-4xl lg:text-6xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.2)" }}>
                         {widont("Lang faces the unbearable weight of living in all its forms, and wrestles with what words and verses can honestly hold.")}
                     </p>
                     </div>
                 </div>
                 <div className="h-screen flex items-center justify-center">
-                    <div style={{ position: "relative" }}>
-                    <p aria-hidden className="text-center leading-none text-5xl md:text-5xl lg:text-8xl" style={{ position: "absolute", inset: 0, color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none" }}>
+                    <div style={{ display: "grid" }}>
+                    <p aria-hidden className="text-center leading-none text-4xl md:text-4xl lg:text-6xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none", pointerEvents: "none" }}>
                         {widont("Lang works fluidly across disciplines, extending her voice through comics, moving image, cinema, and writing.")}
                     </p>
-                    <p className="text-center text-outlined leading-none text-5xl md:text-5xl lg:text-8xl" style={{ color: "rgba(255,255,255,0.2)" }}>
+                    <p className="text-center text-outlined leading-none text-4xl md:text-4xl lg:text-6xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.2)" }}>
                         {widont("Lang works fluidly across disciplines, extending her voice through comics, moving image, cinema, and writing.")}
                     </p>
                     </div>
                 </div>
                 <div className="h-screen flex items-center justify-center">
-                    <div style={{ position: "relative" }}>
-                    <p aria-hidden className="text-center leading-none text-5xl md:text-5xl lg:text-8xl" style={{ position: "absolute", inset: 0, color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none" }}>
+                    <div style={{ display: "grid" }}>
+                    <p aria-hidden className="text-center leading-none text-4xl md:text-4xl lg:text-6xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none", pointerEvents: "none" }}>
                         {widont("She has directed music videos, short films, and television series, and is an author to published essays and novels across Korea, Japan, and Taiwan.")}
                     </p>
-                    <p className="text-center text-outlined leading-none text-5xl md:text-5xl lg:text-8xl" style={{ color: "rgba(255,255,255,0.2)" }}>
+                    <p className="text-center text-outlined leading-none text-4xl md:text-4xl lg:text-6xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.2)" }}>
                         {widont("She has directed music videos, short films, and television series, and is an author to published essays and novels across Korea, Japan, and Taiwan.")}
                     </p>
                     </div>
                 </div>
                 </div>
             </div>
-          </section>
+            </section>
         </div>
-      )}
+        )}
 
 {/* Section overlay */}
       {activeSection && (

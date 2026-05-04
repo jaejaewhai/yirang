@@ -2,12 +2,18 @@
 
 import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
+import { useSection } from "@/lib/context/SectionContext"
 import gsap from "gsap"
 
 export default function SidePanel() {
   const logoRef = useRef<HTMLDivElement>(null)
   const textRef = useRef<HTMLDivElement>(null)
+  const { setActiveSection } = useSection()
   const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    document.documentElement.style.setProperty("--topnav-height", "0px")
+  }, [])
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 1117)
@@ -24,16 +30,22 @@ export default function SidePanel() {
     gsap.to(textRef.current, { x: 0, duration: 2, delay: 2, ease: "power3.out" })
   }, [])
 
+  const goHome = () => {
+    setActiveSection(null)
+    window.scrollTo({ top: 0, behavior: "instant" })
+  }
+
   return (
     <>
       {/* Right Panel - Logo */}
       <div
         className="fixed right-0 top-0 h-full w-1/6 flex flex-col items-center justify-center gap-6 px-4"
-        style={{ mixBlendMode: "difference", zIndex: 201, pointerEvents: "none" }}
+        style={{ mixBlendMode: "difference", zIndex: 201 }}
       >
         <div
           ref={logoRef}
-          className="relative pointer-events-none"
+          onClick={goHome}
+          className="relative cursor-pointer select-none"
           style={{
             width: isMobile ? "clamp(9rem, 12vw, 26vw)" : "15vw",
             height: isMobile ? "clamp(5rem, 6vw, 12vw)" : "10vw",
@@ -52,13 +64,13 @@ export default function SidePanel() {
       {/* Left Panel - Text */}
       <div
         className="fixed left-0 top-0 h-full w-1/6 flex flex-col items-center justify-center gap-6 px-4"
-        style={{ mixBlendMode: "difference", zIndex: 201, pointerEvents: "none" }}
+        style={{ mixBlendMode: "difference", zIndex: 201 }}
       >
         <div ref={textRef} className="text-center">
           <h1
-            className="tracking-widest uppercase text-white pointer-events-none flex items-center"
+            onClick={goHome}
+            className="tracking-widest uppercase text-white cursor-pointer select-none flex items-center"
             style={{
-              pointerEvents: "none",
               fontSize: isMobile ? "clamp(4rem, 3vw, 4rem)" : "clamp(1.5rem, 6vw, 8rem)",
               lineHeight: 1,
               writingMode: isMobile ? "vertical-rl" : "horizontal-tb",

@@ -4,7 +4,6 @@ import Script from "next/script"
 import BlurVignette from "@/components/layout/BlurVignette"
 import BottomNav from "@/components/layout/bottomnav"
 import SidePanel from "@/components/layout/sidepanel"
-import TopNav from "@/components/layout/topnav"
 import PageTransition from "@/components/layout/PageTransition"
 import { SectionProvider } from "@/lib/context/SectionContext"
 import "./globals.css"
@@ -33,7 +32,6 @@ export default function RootLayout({
         />
         <SectionProvider>
           <SidePanel />
-          <TopNav />
           <BlurVignette />
           <BottomNav />
           <PageTransition>
