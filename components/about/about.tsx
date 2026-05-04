@@ -146,9 +146,9 @@ useEffect(() => {
 
       import("split-type").then(({ default: SplitType }) => {
         const headingEl = headingRef.current
-        const bioParas  = bioTextRef.current
-          ? Array.from(bioTextRef.current.querySelectorAll("p"))
-          : []
+        const bioParas = bioTextRef.current
+        ? Array.from(bioTextRef.current.querySelectorAll("p:not([aria-hidden])"))
+        : []
         const elements = [headingEl, ...bioParas].filter(Boolean) as HTMLElement[]
         elements.forEach(el => {
           const split = new SplitType(el, { types: "words" })
@@ -339,40 +339,70 @@ useEffect(() => {
       {/* Foreground text content — hidden when section active */}
       {!activeSection && (
         <div style={{ position: "relative", zIndex: 10 }}>
-          <section className="h-[150vh] flex items-end justify-center px-8 pb-32">
-            <h1 ref={headingRef} className="max-w-4xl text-center text-outlined leading-none text-5xl md:text-5xl lg:text-8xl">
-              {headingText}
-            </h1>
-          </section>
-          <section className="pt-24 pb-32">
+            <section className="h-[150vh] flex items-end justify-center px-8 pb-32">
+            <div style={{ position: "relative" }}>
+                <h1 aria-hidden className="max-w-4xl text-center leading-none text-5xl md:text-5xl lg:text-8xl" style={{ position: "absolute", inset: 0, color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none" }}>
+                {headingText}
+                </h1>
+                <h1 ref={headingRef} className="max-w-4xl text-center text-outlined leading-none text-5xl md:text-5xl lg:text-8xl" style={{ color: "rgba(255,255,255,0.2)" }}>
+                {headingText}
+                </h1>
+            </div>
+            </section>
+            <section className="pt-24 pb-32">
             <div ref={bioRef} className="max-w-4xl mx-auto flex flex-col space-y-5 px-6 md:px-0">
-              <div ref={bioTextRef} className="flex flex-col space-y-5">
+                <div ref={bioTextRef} className="flex flex-col space-y-5">
                 <div className="h-screen flex items-center justify-center">
-                  <p className="text-center text-outlined leading-none text-5xl md:text-5xl lg:text-8xl">
-                    {widont("singer-songwriter, essayist, author, and filmmaker born in Seoul, Korea 1986.")}
-                  </p>
-                </div>
-                <div className="h-screen flex items-center justify-center">
-                  <p className="text-center text-outlined leading-none text-5xl md:text-5xl lg:text-8xl">
-                    {widont("With candid and unflinching approach to art,")}
-                  </p>
-                </div>
-                <div className="h-screen flex items-center justify-center">
-                  <p className="text-center text-outlined leading-none text-5xl md:text-5xl lg:text-8xl">
-                    {widont("Lang faces the unbearable weight of living in all its forms, and wrestles with what words and verses can honestly hold.")}
-                  </p>
+                    <div style={{ position: "relative" }}>
+                    <p aria-hidden className="text-center leading-none text-5xl md:text-5xl lg:text-8xl" style={{ position: "absolute", inset: 0, color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none" }}>
+                        {widont("singer-songwriter, essayist, author, and filmmaker born in Seoul, Korea 1986.")}
+                    </p>
+                    <p className="text-center text-outlined leading-none text-5xl md:text-5xl lg:text-8xl" style={{ color: "rgba(255,255,255,0.2)" }}>
+                        {widont("singer-songwriter, essayist, author, and filmmaker born in Seoul, Korea 1986.")}
+                    </p>
+                    </div>
                 </div>
                 <div className="h-screen flex items-center justify-center">
-                  <p className="text-center text-outlined leading-none text-5xl md:text-5xl lg:text-8xl">
-                    {widont("A film major from the Korea National University of Arts, Lang works fluidly across disciplines, extending her voice through comics, moving image, cinema, and writing.")}
-                  </p>
+                    <div style={{ position: "relative" }}>
+                    <p aria-hidden className="text-center leading-none text-5xl md:text-5xl lg:text-8xl" style={{ position: "absolute", inset: 0, color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none" }}>
+                        {widont("With candid and unflinching approach to art,")}
+                    </p>
+                    <p className="text-center text-outlined leading-none text-5xl md:text-5xl lg:text-8xl" style={{ color: "rgba(255,255,255,0.2)" }}>
+                        {widont("With candid and unflinching approach to art,")}
+                    </p>
+                    </div>
                 </div>
-                                <div className="h-screen flex items-center justify-center">
-                  <p className="text-center text-outlined leading-none text-5xl md:text-5xl lg:text-8xl">
-                    {widont("She has directed music videos, short films, and television series, and is an author to published essays and novels across Korea, Japan, and Taiwan.")}
-                  </p>
+                <div className="h-screen flex items-center justify-center">
+                    <div style={{ position: "relative" }}>
+                    <p aria-hidden className="text-center leading-none text-5xl md:text-5xl lg:text-8xl" style={{ position: "absolute", inset: 0, color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none" }}>
+                        {widont("Lang faces the unbearable weight of living in all its forms, and wrestles with what words and verses can honestly hold.")}
+                    </p>
+                    <p className="text-center text-outlined leading-none text-5xl md:text-5xl lg:text-8xl" style={{ color: "rgba(255,255,255,0.2)" }}>
+                        {widont("Lang faces the unbearable weight of living in all its forms, and wrestles with what words and verses can honestly hold.")}
+                    </p>
+                    </div>
                 </div>
-              </div>
+                <div className="h-screen flex items-center justify-center">
+                    <div style={{ position: "relative" }}>
+                    <p aria-hidden className="text-center leading-none text-5xl md:text-5xl lg:text-8xl" style={{ position: "absolute", inset: 0, color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none" }}>
+                        {widont("A film major from the Korea National University of Arts, Lang works fluidly across disciplines, extending her voice through comics, moving image, cinema, and writing.")}
+                    </p>
+                    <p className="text-center text-outlined leading-none text-5xl md:text-5xl lg:text-8xl" style={{ color: "rgba(255,255,255,0.2)" }}>
+                        {widont("A film major from the Korea National University of Arts, Lang works fluidly across disciplines, extending her voice through comics, moving image, cinema, and writing.")}
+                    </p>
+                    </div>
+                </div>
+                <div className="h-screen flex items-center justify-center">
+                    <div style={{ position: "relative" }}>
+                    <p aria-hidden className="text-center leading-none text-5xl md:text-5xl lg:text-8xl" style={{ position: "absolute", inset: 0, color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none" }}>
+                        {widont("She has directed music videos, short films, and television series, and is an author to published essays and novels across Korea, Japan, and Taiwan.")}
+                    </p>
+                    <p className="text-center text-outlined leading-none text-5xl md:text-5xl lg:text-8xl" style={{ color: "rgba(255,255,255,0.2)" }}>
+                        {widont("She has directed music videos, short films, and television series, and is an author to published essays and novels across Korea, Japan, and Taiwan.")}
+                    </p>
+                    </div>
+                </div>
+                </div>
             </div>
           </section>
         </div>

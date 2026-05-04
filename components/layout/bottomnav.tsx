@@ -45,27 +45,53 @@ export default function BottomNav() {
             background: "linear-gradient(to top, rgba(180, 140, 60, 0.5) 0%, transparent 100%)",
             maskImage: "linear-gradient(to top, black 0%, transparent 100%)",
             WebkitMaskImage: "linear-gradient(to top, black 0%, transparent 100%)",
-            backdropFilter: "blur(100px)",
-            WebkitBackdropFilter: "blur(100px)",
+            backdropFilter: "blur(10px)",
+            WebkitBackdropFilter: "blur(10px)",
             pointerEvents: "none",
             zIndex: 0,
           }}
         />
         <div className="relative z-10 flex items-center justify-center gap-5 md:gap-6 lg:gap-8">
-          {navItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => {
-                setActiveSection(activeSection === item.id ? null : item.id)
-                window.scrollTo({ top: 0, behavior: "instant" })
-              }}
-              className={`text-sm md:text-xl lg:text-2xl tracking-widest uppercase transition-colors duration-300 ${
-                activeSection === item.id ? "text-white" : "text-white/60 hover:text-white"
-              }`}
-            >
-              {item.label}
-            </button>
-          ))}
+          {navItems.map((item) => {
+            const isActive = activeSection === item.id
+            return (
+              <button
+                key={item.id}
+                onClick={() => {
+                  setActiveSection(isActive ? null : item.id)
+                  window.scrollTo({ top: 0, behavior: "instant" })
+                }}
+                style={{ position: "relative", background: "none", border: "none", cursor: "pointer", padding: "0" }}
+              >
+                {/* Blur glow layer */}
+                <span
+                  aria-hidden
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    color: isActive ? "rgba(255,255,255,0.8)" : "rgba(255,255,255,0.4)",
+                    filter: "blur(12px)",
+                    userSelect: "none",
+                    fontSize: "1.2rem",
+                    letterSpacing: "0.1em",
+                  }}
+                >
+                  {item.label}
+                </span>
+                {/* Visible text */}
+                <span
+                  style={{
+                    color: isActive ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.4)",
+                    fontSize: "1.2rem",
+                    letterSpacing: "0.1em",
+                    transition: "color 0.3s ease",
+                  }}
+                >
+                  {item.label}
+                </span>
+              </button>
+            )
+          })}
         </div>
         <span className="relative z-10 text-md text-white/30">© 2026 Lang Lee. All rights reserved.</span>
     </nav>

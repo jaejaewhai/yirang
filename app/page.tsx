@@ -13,8 +13,7 @@ export default function Home() {
   const isOverlay = activeSection === "works" || activeSection === "about" || activeSection === "music" || activeSection === "books" 
 
   return (
-    <main className="relative">
-      {activeSection === "music" && <MusicOverlay onClose={() => {}} />}
+<main className="relative" style={{ overflow: isOverlay ? "auto" : "hidden" }}>      {activeSection === "music" && <MusicOverlay onClose={() => {}} />}
       {activeSection === "about" && <AboutPage />}
       {activeSection === "works" && <WorksPage />}
       {activeSection === "books" && <BooksPage />}
