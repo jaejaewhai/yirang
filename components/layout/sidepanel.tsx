@@ -63,7 +63,7 @@ export default function SidePanel() {
 
       {/* Left Panel - Text */}
       <div
-        className="fixed left-0 top-0 h-full w-1/6 flex flex-col items-center justify-center gap-6 px-2"
+        className="fixed left-0 top-0 h-full w-1/6 flex flex-col items-center justify-center gap-6"
         style={{ mixBlendMode: "difference", zIndex: 201 }}
       >
         <div ref={textRef} className="text-center">
