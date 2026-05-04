@@ -352,16 +352,16 @@ useEffect(() => {
             <section className="pt-24 pb-32">
             <div ref={bioRef} className="max-w-4xl mx-auto flex flex-col space-y-5 px-6 md:px-0">
                 <div ref={bioTextRef} className="flex flex-col space-y-5">
-                <div className="h-screen flex items-center justify-center">
-                    <div style={{ position: "relative" }}>
-                    <p aria-hidden className="text-center leading-none text-5xl md:text-5xl lg:text-8xl" style={{ position: "absolute", color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none" }}>
-                        {widont("singer-songwriter, essayist, author, and filmmaker born in Seoul, Korea 1986.")}
-                    </p>
-                    <p className="text-center text-outlined leading-none text-5xl md:text-5xl lg:text-8xl" style={{ color: "rgba(255,255,255,0.2)" }}>
-                        {widont("singer-songwriter, essayist, author, and filmmaker born in Seoul, Korea 1986.")}
-                    </p>
+                    <div className="h-screen flex items-center justify-center">
+                    <div style={{ display: "grid" }}>
+                        <p aria-hidden className="text-center leading-none text-5xl md:text-5xl lg:text-8xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none", pointerEvents: "none" }}>
+                        {widont("singer-songwriter, essayist, author, and filmmaker.")}
+                        </p>
+                        <p className="text-center text-outlined leading-none text-5xl md:text-5xl lg:text-8xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.2)" }}>
+                        {widont("singer-songwriter, essayist, author, and filmmaker.")}
+                        </p>
                     </div>
-                </div>
+                    </div>
                 <div className="h-screen flex items-center justify-center">
                     <div style={{ position: "relative" }}>
                     <p aria-hidden className="text-center leading-none text-5xl md:text-5xl lg:text-8xl" style={{ position: "absolute", inset: 0, color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none" }}>
@@ -385,10 +385,10 @@ useEffect(() => {
                 <div className="h-screen flex items-center justify-center">
                     <div style={{ position: "relative" }}>
                     <p aria-hidden className="text-center leading-none text-5xl md:text-5xl lg:text-8xl" style={{ position: "absolute", inset: 0, color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none" }}>
-                        {widont("A film major from the Korea National University of Arts, Lang works fluidly across disciplines, extending her voice through comics, moving image, cinema, and writing.")}
+                        {widont("Lang works fluidly across disciplines, extending her voice through comics, moving image, cinema, and writing.")}
                     </p>
                     <p className="text-center text-outlined leading-none text-5xl md:text-5xl lg:text-8xl" style={{ color: "rgba(255,255,255,0.2)" }}>
-                        {widont("A film major from the Korea National University of Arts, Lang works fluidly across disciplines, extending her voice through comics, moving image, cinema, and writing.")}
+                        {widont("Lang works fluidly across disciplines, extending her voice through comics, moving image, cinema, and writing.")}
                     </p>
                     </div>
                 </div>
