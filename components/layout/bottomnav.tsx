@@ -44,7 +44,7 @@ export default function BottomNav() {
       {/* Top nav buttons */}
       <div
         ref={topNavRef}
-        className="fixed top-0 left-0 right-0 flex items-center justify-center px-8 pt-8 pb-3 gap-2 md:gap-5 lg:gap-6"
+        className="fixed top-0 left-0 right-0 flex items-center justify-center px-8 pt-6 pb-3 gap-2 md:gap-5 lg:gap-6"
         style={{ zIndex: 200, opacity, pointerEvents: opacity > 0.5 ? "auto" : "none" }}
       >
         {navItems.map((item) => {
