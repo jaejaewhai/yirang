@@ -354,7 +354,7 @@ useEffect(() => {
                 <div ref={bioTextRef} className="flex flex-col space-y-5">
                 <div className="h-screen flex items-center justify-center">
                     <div style={{ position: "relative" }}>
-                    <p aria-hidden className="text-center leading-none text-5xl md:text-5xl lg:text-8xl" style={{ position: "absolute", inset: 0, color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none" }}>
+                    <p aria-hidden className="text-center leading-none text-5xl md:text-5xl lg:text-8xl" style={{ position: "absolute", color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none" }}>
                         {widont("singer-songwriter, essayist, author, and filmmaker born in Seoul, Korea 1986.")}
                     </p>
                     <p className="text-center text-outlined leading-none text-5xl md:text-5xl lg:text-8xl" style={{ color: "rgba(255,255,255,0.2)" }}>
