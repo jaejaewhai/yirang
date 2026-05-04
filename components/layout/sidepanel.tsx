@@ -62,10 +62,10 @@ export default function SidePanel() {
       </div>
 
       {/* Left Panel - Text */}
-      <div
-        className="fixed left-0 top-0 h-full w-1/6 flex flex-col items-center justify-center gap-6"
-        style={{ mixBlendMode: "difference", zIndex: 201 }}
-      >
+        <div
+          className="fixed left-0 top-0 h-full w-1/6 flex flex-col items-start justify-center gap-6"
+          style={{ mixBlendMode: "difference", zIndex: 201, paddingLeft: "clamp(0.5rem, 2vw, 2rem)" }}
+        >
         <div ref={textRef} className="text-center">
           <h1
             onClick={goHome}
