@@ -90,26 +90,29 @@ function BookCard({ book }: { book: Book }) {
 
       {/* Content */}
       <div style={{ mixBlendMode: "difference", position: "relative", zIndex: 50 }}>
-      <button
+        <button
         style={{
-          ...card.year,
-         WebkitBackfaceVisibility: "hidden",
-         backfaceVisibility: "hidden",
-         outline: "1px solid transparent",
-         color: "rgba(255,255,255,1)",
-         backdropFilter: "blur(30px)",
-         WebkitBackdropFilter: "blur(30px)",
-          borderRadius: "50%",
-          border: "1px solid rgba(255,255,255,1)",
-          padding: "0.8rem 1rem",
-          background: "transparent",
-          cursor: "default",
-          width: "fit-content",
-          margin: "0 auto 1.5rem",
+            WebkitBackfaceVisibility: "hidden",
+            backfaceVisibility: "hidden",
+            outline: "1px solid transparent",
+            color: "rgba(255,255,255,1)",
+            backdropFilter: "blur(30px)",
+            WebkitBackdropFilter: "blur(30px)",
+            borderRadius: "50%",
+            border: "1px solid rgba(255,255,255,1)",
+            padding: "0.8rem 1rem",
+            background: "transparent",
+            cursor: "default",
+            width: "fit-content",
+            margin: "0 auto 1.5rem",
+            fontSize: "2rem",
+            lineHeight: "2rem",
+            letterSpacing: "0.08em",
+            fontFamily: '"pyeonghwa", sans-serif',
         }}
-      >
+        >
         {book.year}
-      </button>
+        </button>
       <p style={card.titleKo}>{book.titleKo}</p>
       {book.titleEn && <p style={card.titleEn}>{book.titleEn}</p>}
       <p style={card.publisher}>{book.publisherEn ?? book.publisher}</p>
@@ -167,30 +170,27 @@ export default function BooksPage() {
         })
 
   return (
-    <main className=" bg-black pb-16">
+    <main className="pb-16">
 
       {/* Filter buttons */}
-      <div
+        <div
         style={{
-          position: "fixed",
-          WebkitBackfaceVisibility: "hidden",
-          backfaceVisibility: "hidden",
-          outline: "1px solid transparent",
-          color: "rgba(255,255,255,1)",
-          backdropFilter: "blur(0px)",
-          WebkitBackdropFilter: "blur(100px)",
-          top: "calc(var(--topnav-height, 80px) + 0.15rem)",
-          left: 0,
-          width: "100vw",
-          zIndex: 60,
-          display: "flex",
-          justifyContent: "center",
-          flexWrap: "wrap",
-          gap: "8px",
-          padding: "0 24px",
-          userSelect: "none",
+            position: "fixed",
+            WebkitBackfaceVisibility: "hidden",
+            backfaceVisibility: "hidden",
+            outline: "1px solid transparent",
+            top: "calc(var(--topnav-height, 80px) + 0.15rem)",
+            left: 0,
+            width: "100vw",
+            zIndex: 60,
+            display: "flex",
+            justifyContent: "center",
+            flexWrap: "wrap",
+            gap: "8px",
+            padding: "0 24px",
+            userSelect: "none",
         }}
-      >
+        >
         <button
           onClick={() => setActiveCategory(null)}
           onMouseDown={e => e.preventDefault()}
