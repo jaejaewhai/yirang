@@ -53,7 +53,7 @@ export const books: Book[] = [
   { year: "2023 JP", titleKo: "カッコの多い手紙", publisher: "쇼시칸칸보", publisherEn: "Kankanbou", info: "Translator 吉良佳奈江", category: "Collaborative" },
   { year: "2024", titleKo: "월간 십육일", publisher: "사계절출판사", publisherEn: "Sakyejul", info: "네가 그 친구를 계속 기억하면 된단다", category: "Collaborative", image: "/images/books/2024_sixteenth.jpg" },
   { year: "2024", titleKo: "음악의 사생활99: 2010년 이랑", publisher: "삐약삐약북스", publisherEn: "Ppiyackppiyackbooks", category: "Collaborative", image: "/images/books/2024_Personal.jpg" },
-  { year: "2025 JP", titleKo: "음악의 사생활99: 2010년 이랑 일본반", publisher: "스윗드림프레스", publisherEn: "SweetDreamPress", category: "Collaborative" },
+  { year: "2025 JP", titleKo: "音楽のはじまりと私生活: 2010年のイ・ラン", publisher: "스윗드림프레스", publisherEn: "SweetDreamPress", category: "Collaborative" },
 
   // Web Novel
   { year: "2022", titleKo: "나는야 질투왕", publisher: "리디북스", publisherEn: "RIDI", info: "습관적인 질투를 벗어나면 더 많은 사랑이 찾아오지", category: "Web Novel", image: "/images/books/2022_Jealousy.jpg" },

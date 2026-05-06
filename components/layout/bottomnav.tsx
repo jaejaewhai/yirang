@@ -105,9 +105,9 @@ export default function BottomNav() {
             zIndex: 0,
           }}
         />
-          <div className="relative z-10 flex flex-col items-center gap-1">
-            <span className="text-sm text-white/30">info.langlee@gmail.com</span>
+          <div className="relative z-10 flex flex-col items-center gap-1 m-2">
             <span className="text-sm text-white/30">© 2026 Lang Lee. All rights reserved.</span>
+            <span className="text-sm text-white/30">info.langlee@gmail.com</span>
           </div>
       </div>
     </>

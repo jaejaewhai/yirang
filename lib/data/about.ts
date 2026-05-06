@@ -1,8 +1,8 @@
 export const awards = [
-  { year: "2017", award: "Best Folk Song (최우수 포크 노래) — 14th Korean Music Awards", album: "Playing God (신의 놀이)" },
-  { year: "2022", award: "Discovery of the Year (올해의 발견상) — 31st Seoul Music Awards", album: "There is a Wolf (늑대가 나타났다)" },
-  { year: "2022", award: "Album of the Year (올해의 음반) — 19th Korean Music Awards", album: "There is a Wolf (늑대가 나타났다)" },
-  { year: "2022", award: "Best Folk Album (최우수 포크음반) — 19th Korean Music Awards", album: "There is a Wolf (늑대가 나타났다)" },
+  { year: "2017", awardTitleKo: "최우수 포크 노래", awardTitleEn: "Best Folk Song", ceremony: "14th Korean Music Awards", album: "Playing God (신의 놀이)" },
+  { year: "2022", awardTitleKo: "올해의 발견상", awardTitleEn: "Discovery of the Year", ceremony: "31st Seoul Music Awards", album: "There is a Wolf (늑대가 나타났다)" },
+  { year: "2022", awardTitleKo: "올해의 음반", awardTitleEn: "Album of the Year", ceremony: "19th Korean Music Awards", album: "There is a Wolf (늑대가 나타났다)" },
+  { year: "2022", awardTitleKo: "최우수 포크음반", awardTitleEn: "Best Folk Album", ceremony: "19th Korean Music Awards", album: "There is a Wolf (늑대가 나타났다)" },
 ]
 
 export const films = [
@@ -38,17 +38,17 @@ export const publications = [
   // Comics
   { year: "2013", titleKo: "이랑 네컷 만화", titleEn: "Lang Lee Four-cut Manga", publisher: "YOUR-MIND", type: "Comics", region: "Korea" },
   { year: "2015", titleKo: "내가 30대가 됐다", titleEn: "Damn, I'm 30 now", publisher: "YOUR-MIND", type: "Comics", region: "Korea" },
-  { year: "2019", titleKo: "내가 30대가 됐다 (일본반)", titleEn: "Damn, I'm 30 now", publisher: "Tababooks", type: "Comics", region: "Japan" },
+  { year: "2019", titleKo: "내가 30대가 됐다 (일본판)", titleEn: "Damn, I'm 30 now", publisher: "Tababooks", type: "Comics", region: "Japan" },
   // Nonfiction
   { year: "2016", titleKo: "대체 뭐하자는 인간이지 싶었다", titleEn: "Who Do You Think You Are", publisher: "DAL Publishers", type: "Nonfiction", region: "Korea" },
-  { year: "2018", titleKo: "대체 뭐하자는 인간이지 싶었다 (일본반)", titleEn: "Who Do You Think You Are", publisher: "리틀모어", type: "Nonfiction", region: "Japan" },
+  { year: "2018", titleKo: "대체 뭐하자는 인간이지 싶었다 (일본판)", titleEn: "Who Do You Think You Are", publisher: "리틀모어", type: "Nonfiction", region: "Japan" },
   { year: "2020", titleKo: "좋아서 하는 일에도 돈은 필요합니다", titleEn: "I'm an artist, so let's talk about money", publisher: "Changbi", type: "Nonfiction", region: "Korea" },
-  { year: "2021", titleKo: "좋아서 하는 일에도 돈은 필요합니다 (일본반)", titleEn: "I'm an artist, so let's talk about money", publisher: "리틀모어", type: "Nonfiction", region: "Japan" },
-  { year: "2025", titleKo: "소리내어 부르고 말하면 된다 (일본반)", titleEn: "", publisher: "河出書房新社", type: "Nonfiction", region: "Japan" },
+  { year: "2021", titleKo: "좋아서 하는 일에도 돈은 필요합니다 (일본판)", titleEn: "I'm an artist, so let's talk about money", publisher: "리틀모어", type: "Nonfiction", region: "Japan" },
+  { year: "2025", titleKo: "소리내어 부르고 말하면 된다 (일본판)", titleEn: "", publisher: "河出書房新社", type: "Nonfiction", region: "Japan" },
   { year: "2025", titleKo: "기타를 작게 치면서", titleEn: "", publisher: "아침달", type: "Nonfiction", region: "Korea" },
   // Fiction
   { year: "2019", titleKo: "오리 이름 정하기", titleEn: "How To Name The Duck", publisher: "Wisdomhouse", type: "Fiction", region: "Korea" },
-  { year: "2020", titleKo: "오리 이름 정하기 (일본반)", titleEn: "How To Name The Duck", publisher: "河出書房新社", type: "Fiction", region: "Japan" },
+  { year: "2020", titleKo: "오리 이름 정하기 (일본판)", titleEn: "How To Name The Duck", publisher: "河出書房新社", type: "Fiction", region: "Japan" },
   // Collaborative Nonfiction
   { year: "2018", titleKo: "나다운 페미니즘", titleEn: "Here We Are: Feminism for the Real World", publisher: "Changbi", type: "Collaborative Nonfiction", region: "Korea" },
   { year: "2020", titleKo: "소년소녀, 고양이를 부탁해!", titleEn: "", publisher: "Woorischool", type: "Collaborative Nonfiction", region: "Korea" },
@@ -59,13 +59,13 @@ export const publications = [
   { year: "2024", titleKo: "월간 십육일", titleEn: "", publisher: "Sakyejul", type: "Collaborative Nonfiction", region: "Korea" },
   // Collaborative Comics
   { year: "2024", titleKo: "음악의 사생활99: 2010년 이랑", titleEn: "", publisher: "Ppiyackppiyackbooks", type: "Collaborative Comics", region: "Korea" },
-  { year: "2025", titleKo: "음악의 사생활99: 2010년 이랑 (일본반)", titleEn: "", publisher: "SweetDreamPress", type: "Collaborative Comics", region: "Japan" },
+  { year: "2025", titleKo: "음악의 사생활99: 2010년 이랑 (일본판)", titleEn: "", publisher: "SweetDreamPress", type: "Collaborative Comics", region: "Japan" },
   // Epistolary Essay
   { year: "2021", titleKo: "괄호가 많은 편지", titleEn: "", publisher: "Munhak", type: "Epistolary Essay", region: "Korea" },
   { year: "2021", titleKo: "언니에게 보내는 행운의 편지", titleEn: "", publisher: "Changbi", type: "Epistolary Essay", region: "Korea" },
   { year: "2021", titleKo: "모쪼록 잘 부탁드립니다", titleEn: "Yours Sincerely", publisher: "Media Changbi", type: "Epistolary Essay", region: "Korea" },
-  { year: "2022", titleKo: "모쪼록 잘 부탁드립니다 (일본반)", titleEn: "Yours Sincerely", publisher: "Tababooks", type: "Epistolary Essay", region: "Japan" },
-  { year: "2023", titleKo: "괄호가 많은 편지 (일본반)", titleEn: "", publisher: "Kankanbou", type: "Epistolary Essay", region: "Japan" },
+  { year: "2022", titleKo: "모쪼록 잘 부탁드립니다 (일본판)", titleEn: "Yours Sincerely", publisher: "Tababooks", type: "Epistolary Essay", region: "Japan" },
+  { year: "2023", titleKo: "괄호가 많은 편지 (일본판)", titleEn: "", publisher: "Kankanbou", type: "Epistolary Essay", region: "Japan" },
   // Web Novel
   { year: "2022", titleKo: "나는야 질투왕", titleEn: "", publisher: "RIDI", type: "Web Novel", region: "Korea" },
   { year: "2024", titleKo: "오늘은 화해하지 않을 여자들", titleEn: "", publisher: "RIDI", type: "Web Novel", region: "Korea" },

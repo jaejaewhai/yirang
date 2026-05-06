@@ -12,11 +12,15 @@ gsap.registerPlugin(ScrollTrigger)
 const sections = ["Bio", "Film & Video", "Publications", "Live & Tours", "Press", "Awards"]
 const headingText = (
   <>
-    이랑 · 李瀧 · イ‧ラン
+    이랑 · <span style={{ fontFamily: "'toppan-bunkyumidashiminstd-e', sans-serif", fontSize: "1.1em" }}>李瀧</span>
     <br />
-    Lang Lee 
+    <span style={{ fontFamily: "'toppan-bunkyumidashiminstd-e', sans-serif", fontSize: "1.1em" }}>
+      イ<span style={{ fontFamily: "'pyeonghwa', sans-serif", fontSize: "1em" }}> ‧ </span>ラン
+    </span>
     <br />
-    b. 1986, Seoul
+    Lang Lee
+    <br />
+    born 1986, Seoul
   </>
 )
 
@@ -209,9 +213,10 @@ useEffect(() => {
 
         const sectionItems: Record<string, { year: string | number; primary?: string; secondary?: string; meta?: string }[]> = {
         "Awards": awards.map(i => ({
-            year: i.year,
-            primary: i.award,
-            secondary: i.album,
+          year: i.year,
+          primary: i.awardTitleKo,
+          secondary: i.awardTitleEn,
+          meta: [i.ceremony, i.album].filter(Boolean).join(" · "),
         })),
         "Film & Video": films.map(i => ({
             year: i.year,
@@ -349,64 +354,64 @@ useEffect(() => {
         <div style={{ position: "relative", zIndex: 10 }}>
             <section className="h-[150vh] flex items-end justify-center px-8 pb-32">
             <div style={{ display: "grid", width: "clamp(20rem, 80vw, 40rem)" }}>
-                <h1 aria-hidden className="text-center leading-none text-4xl md:text-4xl lg:text-6xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none", pointerEvents: "none" }}>
+                <h1 aria-hidden className="text-center leading-none text-4xl md:text-4xl lg:text-8xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none", pointerEvents: "none" }}>
                 {headingText}
                 </h1>
-                <h1 ref={headingRef} className="text-center text-outlined leading-none text-4xl md:text-4xl lg:text-6xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.2)" }}>
+                <h1 ref={headingRef} className="text-center text-outlined leading-none text-4xl md:text-4xl lg:text-8xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.2)" }}>
                 {headingText}
                 </h1>
             </div>
             </section>
             <section className="pt-24 pb-32">
-            <div ref={bioRef} style={{ width: "clamp(20rem, 80vw, 40rem)", margin: "0 auto" }} className="flex flex-col space-y-5 px-6 md:px-0">
+            <div ref={bioRef} style={{ width: "clamp(20rem, 80vw, 50rem)", margin: "0 auto" }} className="flex flex-col space-y-5 px-6 md:px-0">
                 <div ref={bioTextRef} className="flex flex-col space-y-5">
                 <div className="h-screen flex items-center justify-center">
                     <div style={{ display: "grid" }}>
-                    <p aria-hidden className="text-center leading-none text-4xl md:text-4xl lg:text-6xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none", pointerEvents: "none" }}>
+                    <p aria-hidden className="text-center leading-none text-4xl md:text-6xl lg:text-8xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none", pointerEvents: "none" }}>
                         {widont("singer-songwriter, essayist, author, and filmmaker.")}
                     </p>
-                    <p className="text-center text-outlined leading-none text-4xl md:text-4xl lg:text-6xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.2)" }}>
+                    <p className="text-center text-outlined leading-none text-4xl md:text-6xl lg:text-8xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.2)" }}>
                         {widont("singer-songwriter, essayist, author, and filmmaker.")}
                     </p>
                     </div>
                 </div>
                 <div className="h-screen flex items-center justify-center">
                     <div style={{ display: "grid" }}>
-                    <p aria-hidden className="text-center leading-none text-4xl md:text-4xl lg:text-6xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none", pointerEvents: "none" }}>
-                        {widont("With candid and unflinching approach to art,")}
+                    <p aria-hidden className="text-center leading-none text-4xl md:text-6xl lg:text-8xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none", pointerEvents: "none" }}>
+                        {widont("With candid and unflinching approach to art")}
                     </p>
-                    <p className="text-center text-outlined leading-none text-4xl md:text-4xl lg:text-6xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.2)" }}>
-                        {widont("With candid and unflinching approach to art,")}
+                    <p className="text-center text-outlined leading-none text-4xl md:text-6xl lg:text-8xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.2)" }}>
+                        {widont("With candid and unflinching approach to art")}
                     </p>
                     </div>
                 </div>
                 <div className="h-screen flex items-center justify-center">
                     <div style={{ display: "grid" }}>
-                    <p aria-hidden className="text-center leading-none text-4xl md:text-4xl lg:text-6xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none", pointerEvents: "none" }}>
+                    <p aria-hidden className="text-center leading-none text-4xl md:text-6xl lg:text-8xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none", pointerEvents: "none" }}>
                         {widont("Lang faces the unbearable weight of living in all its forms, and wrestles with what words and verses can honestly hold.")}
                     </p>
-                    <p className="text-center text-outlined leading-none text-4xl md:text-4xl lg:text-6xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.2)" }}>
+                    <p className="text-center text-outlined leading-none text-4xl md:text-6xl lg:text-8xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.2)" }}>
                         {widont("Lang faces the unbearable weight of living in all its forms, and wrestles with what words and verses can honestly hold.")}
                     </p>
                     </div>
                 </div>
                 <div className="h-screen flex items-center justify-center">
                     <div style={{ display: "grid" }}>
-                    <p aria-hidden className="text-center leading-none text-4xl md:text-4xl lg:text-6xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none", pointerEvents: "none" }}>
+                    <p aria-hidden className="text-center leading-none text-4xl md:text-6xl lg:text-8xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none", pointerEvents: "none" }}>
                         {widont("Lang works fluidly across disciplines, extending her voice through comics, moving image, cinema, and writing.")}
                     </p>
-                    <p className="text-center text-outlined leading-none text-4xl md:text-4xl lg:text-6xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.2)" }}>
+                    <p className="text-center text-outlined leading-none text-4xl md:text-6xl lg:text-8xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.2)" }}>
                         {widont("Lang works fluidly across disciplines, extending her voice through comics, moving image, cinema, and writing.")}
                     </p>
                     </div>
                 </div>
                 <div className="h-screen flex items-center justify-center">
                     <div style={{ display: "grid" }}>
-                    <p aria-hidden className="text-center leading-none text-4xl md:text-4xl lg:text-6xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none", pointerEvents: "none" }}>
-                        {widont("She has directed music videos, short films, and television series, and is an author to published essays and novels across Korea, Japan, and Taiwan.")}
+                    <p aria-hidden className="text-center leading-none text-4xl md:text-6xl lg:text-8xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none", pointerEvents: "none" }}>
+                        {widont("She is an author to published essays and novels across Korea, Japan, and Taiwan.")}
                     </p>
-                    <p className="text-center text-outlined leading-none text-4xl md:text-4xl lg:text-6xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.2)" }}>
-                        {widont("She has directed music videos, short films, and television series, and is an author to published essays and novels across Korea, Japan, and Taiwan.")}
+                    <p className="text-center text-outlined leading-none text-4xl md:text-6xl lg:text-8xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.2)" }}>
+                        {widont("She is an author to published essays and novels across Korea, Japan, and Taiwan.")}
                     </p>
                     </div>
                 </div>
@@ -416,40 +421,40 @@ useEffect(() => {
         </div>
         )}
 
-{/* Section overlay */}
-      {activeSection && (
-        <div
-          ref={overlayRef}
-          onWheel={e => e.stopPropagation()}
-          onTouchMove={e => e.stopPropagation()}
-          style={{
-            position: "fixed",
-            top: "calc(var(--topnav-height, 80px) + 64px)",
-            left: 0,
-            width: "100vw",
-            height: "calc(100vh - var(--topnav-height, 80px) - 48px)",
-            zIndex: 50,
-            overflowY: "scroll",
-            padding: "48px",
-            scrollbarWidth: "none" as any,
-            msOverflowStyle: "none" as any,
-          }}
-        >
-          <div 
+            {/* Section overlay */}
+                {activeSection && (
+                    <div
+                    ref={overlayRef}
+                    onWheel={e => e.stopPropagation()}
+                    onTouchMove={e => e.stopPropagation()}
+                    style={{
+                        position: "fixed",
+                        top: "calc(var(--topnav-height, 80px) + 64px)",
+                        left: 0,
+                        width: "100vw",
+                        height: "calc(100vh - var(--topnav-height, 80px) - 48px)",
+                        zIndex: 50,
+                        overflowY: "scroll",
+                        padding: "48px",
+                        scrollbarWidth: "none" as any,
+                        msOverflowStyle: "none" as any,
+                    }}
+                    >
+            <div 
             className="px-6 md:px-0"
-            style={{ maxWidth: "700px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "4rem", paddingBottom: "calc(var(--topnav-height, 80px) + 64px)", }}>
+            style={{ maxWidth: "clamp(20rem, 80vw, 44rem)", margin: "0 auto", display: "flex", flexDirection: "column", gap: "4rem", paddingBottom: "calc(var(--topnav-height, 80px) + 64px)" }}>
             {sectionItems[activeSection]?.map((item, i) => (
-              <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "4rem" }}>
+                <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "clamp(1rem, 4vw, 4rem)" }}>
                 <button
-                style={{
+                    style={{
                     WebkitBackfaceVisibility: "hidden",
                     backfaceVisibility: "hidden",
                     outline: "1px solid transparent",
                     color: "rgba(255,255,255,1)",
                     backdropFilter: "blur(30px)",
                     WebkitBackdropFilter: "blur(30px)",
-                    fontSize: "2rem",
-                    lineHeight: "2rem",
+                    fontSize: "clamp(1rem, 3vw, 2rem)",
+                    lineHeight: 1,
                     letterSpacing: "0.08em",
                     fontFamily: '"pyeonghwa", sans-serif',
                     borderRadius: "50%",
@@ -459,18 +464,18 @@ useEffect(() => {
                     cursor: "default",
                     width: "fit-content",
                     flexShrink: 0,
-                }}
+                    }}
                 >
-                {item.year}
+                    {item.year}
                 </button>
                 <div style={{ display: "flex", flexDirection: "column" }}>
-                  {item.primary && <p style={{ color: "rgba(255,255,255,1)", fontSize: "3rem" , lineHeight: "3rem" }}>{widont(item.primary)}</p>}
-                  {item.secondary && <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "1.5rem" , lineHeight: "2rem" }}>{widont(item.secondary)}</p>}
-                  {item.meta && <p style={{ color: "rgba(255,255,255,0.3)", fontSize: "1.5rem" , lineHeight: "2rem" }}>{widont(item.meta)}</p>}
+                    {item.primary && <p style={{ color: "rgba(255,255,255,1)", fontSize: "clamp(1.2rem, 4vw, 2rem)", lineHeight: 1.1 }}>{widont(item.primary)}</p>}
+                    {item.secondary && <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "clamp(0.9rem, 2.5vw, 1.5rem)", lineHeight: 1.4 }}>{widont(item.secondary)}</p>}
+                    {item.meta && <p style={{ color: "rgba(255,255,255,0.3)", fontSize: "clamp(0.9rem, 2.5vw, 1.5rem)", lineHeight: 1.4 }}>{widont(item.meta)}</p>}
                 </div>
-              </div>
+                </div>
             ))}
-          </div>
+            </div>
         </div>
       )}
 

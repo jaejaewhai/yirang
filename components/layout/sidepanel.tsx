@@ -71,7 +71,7 @@ export default function SidePanel() {
             onClick={goHome}
             className="tracking-widest uppercase text-white cursor-pointer select-none flex items-center"
             style={{
-              fontSize: isMobile ? "clamp(4rem, 3vw, 4rem)" : "clamp(1.5rem, 6vw, 8rem)",
+              fontSize: isMobile ? "clamp(4rem, 3vw, 4rem)" : "clamp(1rem, 6vw, 8rem)",
               lineHeight: 1,
               writingMode: isMobile ? "vertical-rl" : "horizontal-tb",
               textOrientation: "mixed",
