@@ -12,7 +12,9 @@ gsap.registerPlugin(ScrollTrigger)
 const sections = ["Bio", "Film & Video", "Publications", "Live & Tours", "Press", "Awards"]
 const headingText = (
   <>
-    이랑 · <span style={{ fontFamily: "'toppan-bunkyumidashiminstd-e', sans-serif", fontSize: "1.1em" }}>李瀧</span>
+    이랑
+    <br />
+    <span style={{ fontFamily: "'toppan-bunkyumidashiminstd-e', sans-serif", fontSize: "1.1em" }}>李瀧</span>
     <br />
     <span style={{ fontFamily: "'toppan-bunkyumidashiminstd-e', sans-serif", fontSize: "1.1em" }}>
       イ<span style={{ fontFamily: "'pyeonghwa', sans-serif", fontSize: "1em" }}> ‧ </span>ラン
@@ -28,56 +30,158 @@ const leftImages  = Array.from({ length: 12 }, (_, i) => `/images/about/${i + 1}
 const rightImages = Array.from({ length: 12 }, (_, i) => `/images/about/${i + 13}.jpg`)
 const allImages   = [...leftImages, ...rightImages]
 
+// ─── Fixed crossfade panel ────────────────────────────────────────────────────
+function ImagePanel({ images, interval, startIndex = 0, initialDelay = 0 }: { 
+  images: string[]
+  interval: number
+  startIndex?: number
+  initialDelay?: number
+}) {
+  const [slotA, setSlotA] = useState(startIndex % images.length)
+  const [slotB, setSlotB] = useState((startIndex + 1) % images.length)
+  const [topSlot, setTopSlot] = useState<"a" | "b">("a")
+  const indexRef = useRef((startIndex + 1) % images.length)
+  const topSlotRef = useRef<"a" | "b">("a")
+
+  useEffect(() => {
+    const tick = () => {
+      const next = (indexRef.current + 1) % images.length
+      indexRef.current = next
+
+      if (topSlotRef.current === "a") {
+        setSlotB(next)
+        setTimeout(() => {
+          topSlotRef.current = "b"
+          setTopSlot("b")
+        }, 50)
+      } else {
+        setSlotA(next)
+        setTimeout(() => {
+          topSlotRef.current = "a"
+          setTopSlot("a")
+        }, 50)
+      }
+    }
+
+    const delay = setTimeout(() => {
+      tick() // fire once after delay so right panel is offset
+      const timer = setInterval(tick, interval)
+      return () => clearInterval(timer)
+    }, initialDelay)
+
+    return () => clearTimeout(delay)
+  }, [])
+
+  const fadeDuration = "2s"
+
+  return (
+    <div style={{ position: "relative", width: "100%", height: "100%" }}>
+      <Image
+        key={slotA}
+        src={images[slotA]}
+        alt=""
+        fill
+        sizes="50vw"
+        style={{
+          objectFit: "cover",
+          opacity: topSlot === "a" ? 0.6 : 0,
+          transition: `opacity ${fadeDuration} ease-in-out`,
+          zIndex: topSlot === "a" ? 2 : 1,
+        }}
+        priority
+      />
+      <Image
+        key={slotB}
+        src={images[slotB]}
+        alt=""
+        fill
+        sizes="50vw"
+        style={{
+          objectFit: "cover",
+          opacity: topSlot === "b" ? 0.6 : 0,
+          transition: `opacity ${fadeDuration} ease-in-out`,
+          zIndex: topSlot === "b" ? 2 : 1,
+        }}
+      />
+    </div>
+  )
+}
+
+function ImagePanelMobile({ images, interval }: { images: string[]; interval: number }) {
+  const [slotA, setSlotA] = useState(0)
+  const [slotB, setSlotB] = useState(1)
+  const [topSlot, setTopSlot] = useState<"a" | "b">("a")
+  const indexRef = useRef(1)
+  const topSlotRef = useRef<"a" | "b">("a")
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const next = (indexRef.current + 1) % images.length
+      indexRef.current = next
+
+      if (topSlotRef.current === "a") {
+        setSlotB(next)
+        setTimeout(() => {
+          topSlotRef.current = "b"
+          setTopSlot("b")
+        }, 50)
+      } else {
+        setSlotA(next)
+        setTimeout(() => {
+          topSlotRef.current = "a"
+          setTopSlot("a")
+        }, 50)
+      }
+    }, interval)
+    return () => clearInterval(timer)
+  }, [])
+
+  const fadeDuration = "2s"
+
+  return (
+    <div style={{ position: "relative", width: "100%", height: "100%" }}>
+      <Image
+        key={slotA}
+        src={images[slotA]}
+        alt=""
+        fill
+        sizes="100vw"
+        style={{
+          objectFit: "cover",
+          opacity: topSlot === "a" ? 0.6 : 0,
+          transition: `opacity ${fadeDuration} ease-in-out`,
+          zIndex: topSlot === "a" ? 2 : 1,
+        }}
+        priority
+      />
+      <Image
+        key={slotB}
+        src={images[slotB]}
+        alt=""
+        fill
+        sizes="100vw"
+        style={{
+          objectFit: "cover",
+          opacity: topSlot === "b" ? 0.6 : 0,
+          transition: `opacity ${fadeDuration} ease-in-out`,
+          zIndex: topSlot === "b" ? 2 : 1,
+        }}
+      />
+    </div>
+  )
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
 export default function AboutPage() {
   const [activeSection, setActiveSection] = useState<string | null>(null)
   const [isMobile, setIsMobile]           = useState(false)
   const headingRef     = useRef<HTMLHeadingElement>(null)
   const bioRef         = useRef<HTMLDivElement>(null)
   const bioTextRef     = useRef<HTMLDivElement>(null)
-  const leftStripRef   = useRef<HTMLDivElement>(null)
-  const rightStripRef  = useRef<HTMLDivElement>(null)
-  const singleStripRef = useRef<HTMLDivElement>(null)
-  const overlayRef = useRef<HTMLDivElement>(null)
+  const overlayRef     = useRef<HTMLDivElement>(null)
 
-  // Background strip animations
-useEffect(() => {
-  const leftStrip  = leftStripRef.current
-  const rightStrip = rightStripRef.current
-  if (!leftStrip || !rightStrip) return
-
-  const leftH  = window.innerHeight * leftImages.length
-  const rightH = window.innerHeight * rightImages.length
-
-  // Left: start halfway through so images are visible immediately
-  gsap.set(leftStrip, { y: -(leftH * 0.5) })
-  const leftTween = gsap.fromTo(leftStrip,
-    { y: -(leftH * 0.5) },
-    {
-      y: -(leftH * 1.5),
-      duration: leftImages.length * 20,
-      ease: "none",
-      repeat: -1,
-    }
-  )
-
-  // Right: unchanged
-  gsap.set(rightStrip, { y: -rightH })
-  const rightTween = gsap.to(rightStrip, {
-    y: 0,
-    duration: rightImages.length * 20,
-    ease: "none",
-    repeat: -1,
-  })
-
-  return () => {
-    leftTween.kill()
-    rightTween.kill()
-  }
-}, [])
-
-//smoothscrolling for acive section
-
-    useEffect(() => {
+  // smooth scrolling for active section
+  useEffect(() => {
     if (!activeSection) return
     const el = overlayRef.current
     if (!el) return
@@ -86,28 +190,26 @@ useEffect(() => {
     let rafId: number
 
     const init = async () => {
-        const { default: Lenis } = await import("lenis")
-        overlayLenis = new Lenis({
+      const { default: Lenis } = await import("lenis")
+      overlayLenis = new Lenis({
         wrapper: el,
         content: el.firstElementChild as HTMLElement,
         duration: 0.8,
         easing: (t: number) => 1 - Math.pow(1 - t, 4),
-        })
-
-        function raf(time: number) {
+      })
+      function raf(time: number) {
         overlayLenis.raf(time)
         rafId = requestAnimationFrame(raf)
-        }
-        rafId = requestAnimationFrame(raf)
+      }
+      rafId = requestAnimationFrame(raf)
     }
 
     init()
-
     return () => {
-        cancelAnimationFrame(rafId)
-        overlayLenis?.destroy()
+      cancelAnimationFrame(rafId)
+      overlayLenis?.destroy()
     }
-    }, [activeSection])
+  }, [activeSection])
 
   // Mobile breakpoint detection
   useEffect(() => {
@@ -116,22 +218,6 @@ useEffect(() => {
     window.addEventListener("resize", checkMobile)
     return () => window.removeEventListener("resize", checkMobile)
   }, [])
-
-  // Single strip animation for mobile
-  useEffect(() => {
-    if (!isMobile) return
-    const strip = singleStripRef.current
-    if (!strip) return
-
-    const totalH = window.innerHeight * allImages.length
-    const tween = gsap.to(strip, {
-      y: -totalH,
-      duration: allImages.length * 20,
-      ease: "none",
-      repeat: -1,
-    })
-    return () => { tween.kill() }
-  }, [isMobile])
 
   // Text animations
   useEffect(() => {
@@ -159,8 +245,8 @@ useEffect(() => {
       import("split-type").then(({ default: SplitType }) => {
         const headingEl = headingRef.current
         const bioParas = bioTextRef.current
-        ? Array.from(bioTextRef.current.querySelectorAll("p:not([aria-hidden])"))
-        : []
+          ? Array.from(bioTextRef.current.querySelectorAll("p:not([aria-hidden])"))
+          : []
         const elements = [headingEl, ...bioParas].filter(Boolean) as HTMLElement[]
         elements.forEach(el => {
           const split = new SplitType(el, { types: "words" })
@@ -203,68 +289,69 @@ useEffect(() => {
     }
   }, [])
 
-        const toggle = (section: string) => {
-            if (section === "Bio") {
-            setActiveSection(null)
-            return
-            }
-            setActiveSection(prev => prev === section ? null : section)
-        }
+  const toggle = (section: string) => {
+    if (section === "Bio") {
+      setActiveSection(null)
+      return
+    }
+    setActiveSection(prev => prev === section ? null : section)
+  }
 
-        const sectionItems: Record<string, { year: string | number; primary?: string; secondary?: string; meta?: string }[]> = {
-        "Awards": awards.map(i => ({
-          year: i.year,
-          primary: i.awardTitleKo,
-          secondary: i.awardTitleEn,
-          meta: [i.ceremony, i.album].filter(Boolean).join(" · "),
-        })),
-        "Film & Video": films.map(i => ({
-            year: i.year,
-            primary: i.titleKo,
-            secondary: i.titleEn,
-            meta: [i.format, i.role].filter(Boolean).join(" · "),
-        })),
-        "Publications": publications.map(i => ({
-            year: i.year,
-            primary: i.titleKo,
-            secondary: i.titleEn,
-            meta: [i.publisher, i.type, i.region].filter(Boolean).join(" · "),
-        })),
-        "Live & Tours": tours.map(i => ({
-            year: i.year,
-            primary: i.title,
-            meta: i.location,
-        })),
-        "Press": press.map(i => ({
-            year: i.year,
-            primary: i.title,
-            meta: [i.outlet, i.region].filter(Boolean).join(" · "),
-        })),
-}
+  const sectionItems: Record<string, { year: string | number; primary?: string; secondary?: string; meta?: string }[]> = {
+    "Awards": awards.map(i => ({
+      year: i.year,
+      primary: i.awardTitleKo,
+      secondary: i.awardTitleEn,
+      meta: [i.ceremony, i.album].filter(Boolean).join(" · "),
+    })),
+    "Film & Video": films.map(i => ({
+      year: i.year,
+      primary: i.titleKo,
+      secondary: i.titleEn,
+      meta: [i.format, i.role].filter(Boolean).join(" · "),
+    })),
+    "Publications": publications.map(i => ({
+      year: i.year,
+      primary: i.titleKo,
+      secondary: i.titleEn,
+      meta: [i.publisher, i.type, i.region].filter(Boolean).join(" · "),
+    })),
+    "Live & Tours": tours.map(i => ({
+      year: i.year,
+      primary: i.title,
+      meta: i.location,
+    })),
+    "Press": press.map(i => ({
+      year: i.year,
+      primary: i.title,
+      meta: [i.outlet, i.region].filter(Boolean).join(" · "),
+    })),
+  }
+
   return (
     <main className="min-h-screen bg-black pb-16">
 
       {/* Fixed section buttons */}
-        <div
+      <div
         style={{
-            WebkitBackfaceVisibility: "hidden",
-            backfaceVisibility: "hidden",
-            outline: "1px solid transparent",
-            position: "fixed",
-            top: "calc(var(--topnav-height, 80px) + 0.15rem)",
-            left: 0,
-            width: "100vw",
-            zIndex: 60,
-            display: "flex",
-            justifyContent: "center",
-            flexWrap: "wrap",
-            gap: "8px",
-            padding: "0 24px",
-            userSelect: "none",
-            transform: "translateZ(0)",
-            willChange: "transform",
+          WebkitBackfaceVisibility: "hidden",
+          backfaceVisibility: "hidden",
+          outline: "1px solid transparent",
+          position: "fixed",
+          top: "calc(var(--topnav-height, 80px) + 0.15rem)",
+          left: 0,
+          width: "100vw",
+          zIndex: 60,
+          display: "flex",
+          justifyContent: "center",
+          flexWrap: "wrap",
+          gap: "8px",
+          padding: "0 24px",
+          userSelect: "none",
+          transform: "translateZ(0)",
+          willChange: "transform",
         }}
-        >
+      >
         {sections.map(section => (
           <button
             key={section}
@@ -299,154 +386,117 @@ useEffect(() => {
         ))}
       </div>
 
-      {/* Background image strips */}
-      <div
-        style={{
-          position: "fixed",
-          inset: 0,
-          zIndex: 0,
-          overflow: "hidden",
-          display: isMobile ? "block" : "grid",
-          gridTemplateColumns: isMobile ? undefined : "1fr 1fr 1fr",
-        }}
-      >
+      {/* Background — fixed crossfade panels */}
+      <div style={{ position: "fixed", inset: 0, zIndex: 0 }}>
         {isMobile ? (
-          <div style={{ overflow: "hidden", height: "100%", position: "relative" }}>
-            <div ref={singleStripRef} style={{ display: "flex", flexDirection: "column" }}>
-              {[...allImages, ...allImages].map((src, i) => (
-                <div key={i} style={{ width: "100%", height: "100vh", flexShrink: 0, position: "relative" }}>
-                  <Image src={src} alt="" fill sizes="100vw" style={{ objectFit: "cover", opacity: 0.6 }} />
-                </div>
-              ))}
-            </div>
-          </div>
+          <ImagePanelMobile images={allImages} interval={4000} />
         ) : (
-          <>
-        {/* Left column — bottom to top */}
-        <div style={{ position: "relative" }}>
-        <div ref={leftStripRef} style={{ display: "flex", flexDirection: "column" }}>
-            {[...leftImages, ...leftImages].map((src, i) => (
-            <div key={i} style={{ width: "100%", height: "100vh", flexShrink: 0, position: "relative" }}>
-                <Image src={src} alt="" fill sizes="33vw" style={{ objectFit: "cover", opacity: 0.6 }} priority={i < 2} />
-            </div>
-            ))}
-        </div>
-        </div>
-
-        <div />
-
-        {/* Right column — top to bottom */}
-        <div style={{ position: "relative" }}>
-        <div ref={rightStripRef} style={{ display: "flex", flexDirection: "column" }}>
-            {[...rightImages, ...rightImages].map((src, i) => (
-            <div key={i} style={{ width: "100%", height: "100vh", flexShrink: 0, position: "relative" }}>
-                <Image src={src} alt="" fill sizes="33vw" style={{ objectFit: "cover", opacity: 0.6 }} />
-            </div>
-            ))}
-        </div>
-        </div>
-          </>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", height: "100%" }}>
+            <ImagePanel images={leftImages}  interval={4000} startIndex={0} initialDelay={0} />
+            <ImagePanel images={rightImages} interval={4000} startIndex={3} initialDelay={2000} />
+          </div>
         )}
       </div>
 
-        {/* Foreground text content — hidden when section active */}
-        {!activeSection && (
+      {/* Foreground text content */}
+      {!activeSection && (
         <div style={{ position: "relative", zIndex: 10 }}>
-            <section className="h-[150vh] flex items-end justify-center px-8 pb-32">
+          <section className="h-[150vh] flex items-end justify-center px-8 pb-32">
             <div style={{ display: "grid", width: "clamp(20rem, 80vw, 40rem)" }}>
-                <h1 aria-hidden className="text-center leading-none text-4xl md:text-4xl lg:text-8xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none", pointerEvents: "none" }}>
+              <h1 aria-hidden className="text-center leading-none text-4xl md:text-4xl lg:text-8xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none", pointerEvents: "none" }}>
                 {headingText}
-                </h1>
-                <h1 ref={headingRef} className="text-center text-outlined leading-none text-4xl md:text-4xl lg:text-8xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.2)" }}>
+              </h1>
+              <h1 ref={headingRef} className="text-center text-outlined leading-none text-4xl md:text-4xl lg:text-8xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.2)" }}>
                 {headingText}
-                </h1>
+              </h1>
             </div>
-            </section>
-            <section className="pt-24 pb-32">
+          </section>
+          <section className="pt-24 pb-32">
             <div ref={bioRef} style={{ width: "clamp(20rem, 80vw, 50rem)", margin: "0 auto" }} className="flex flex-col space-y-5 px-6 md:px-0">
-                <div ref={bioTextRef} className="flex flex-col space-y-5">
+              <div ref={bioTextRef} className="flex flex-col space-y-5">
                 <div className="h-screen flex items-center justify-center">
-                    <div style={{ display: "grid" }}>
+                  <div style={{ display: "grid" }}>
                     <p aria-hidden className="text-center leading-none text-4xl md:text-6xl lg:text-8xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none", pointerEvents: "none" }}>
-                        {widont("singer-songwriter, essayist, author, and filmmaker.")}
+                      {widont("singer-songwriter, essayist, author, and filmmaker.")}
                     </p>
                     <p className="text-center text-outlined leading-none text-4xl md:text-6xl lg:text-8xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.2)" }}>
-                        {widont("singer-songwriter, essayist, author, and filmmaker.")}
+                      {widont("singer-songwriter, essayist, author, and filmmaker.")}
                     </p>
-                    </div>
+                  </div>
                 </div>
                 <div className="h-screen flex items-center justify-center">
-                    <div style={{ display: "grid" }}>
+                  <div style={{ display: "grid" }}>
                     <p aria-hidden className="text-center leading-none text-4xl md:text-6xl lg:text-8xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none", pointerEvents: "none" }}>
-                        {widont("With candid and unflinching approach to art")}
+                      {widont("With candid and unflinching approach to art")}
                     </p>
                     <p className="text-center text-outlined leading-none text-4xl md:text-6xl lg:text-8xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.2)" }}>
-                        {widont("With candid and unflinching approach to art")}
+                      {widont("With candid and unflinching approach to art")}
                     </p>
-                    </div>
+                  </div>
                 </div>
                 <div className="h-screen flex items-center justify-center">
-                    <div style={{ display: "grid" }}>
+                  <div style={{ display: "grid" }}>
                     <p aria-hidden className="text-center leading-none text-4xl md:text-6xl lg:text-8xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none", pointerEvents: "none" }}>
-                        {widont("Lang faces the unbearable weight of living in all its forms, and wrestles with what words and verses can honestly hold.")}
+                      {widont("Lang faces the unbearable weight of living in all its forms, and wrestles with what words and verses can honestly hold.")}
                     </p>
                     <p className="text-center text-outlined leading-none text-4xl md:text-6xl lg:text-8xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.2)" }}>
-                        {widont("Lang faces the unbearable weight of living in all its forms, and wrestles with what words and verses can honestly hold.")}
+                      {widont("Lang faces the unbearable weight of living in all its forms, and wrestles with what words and verses can honestly hold.")}
                     </p>
-                    </div>
+                  </div>
                 </div>
                 <div className="h-screen flex items-center justify-center">
-                    <div style={{ display: "grid" }}>
+                  <div style={{ display: "grid" }}>
                     <p aria-hidden className="text-center leading-none text-4xl md:text-6xl lg:text-8xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none", pointerEvents: "none" }}>
-                        {widont("Lang works fluidly across disciplines, extending her voice through comics, moving image, cinema, and writing.")}
+                      {widont("Lang works fluidly across disciplines, extending her voice through comics, moving image, cinema, and writing.")}
                     </p>
                     <p className="text-center text-outlined leading-none text-4xl md:text-6xl lg:text-8xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.2)" }}>
-                        {widont("Lang works fluidly across disciplines, extending her voice through comics, moving image, cinema, and writing.")}
+                      {widont("Lang works fluidly across disciplines, extending her voice through comics, moving image, cinema, and writing.")}
                     </p>
-                    </div>
+                  </div>
                 </div>
                 <div className="h-screen flex items-center justify-center">
-                    <div style={{ display: "grid" }}>
+                  <div style={{ display: "grid" }}>
                     <p aria-hidden className="text-center leading-none text-4xl md:text-6xl lg:text-8xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.5)", filter: "blur(20px)", userSelect: "none", pointerEvents: "none" }}>
-                        {widont("She is an author to published essays and novels across Korea, Japan, and Taiwan.")}
+                      {widont("She is an author to published essays and novels across Korea, Japan, and Taiwan.")}
                     </p>
                     <p className="text-center text-outlined leading-none text-4xl md:text-6xl lg:text-8xl" style={{ gridArea: "1/1", color: "rgba(255,255,255,0.2)" }}>
-                        {widont("She is an author to published essays and novels across Korea, Japan, and Taiwan.")}
+                      {widont("She is an author to published essays and novels across Korea, Japan, and Taiwan.")}
                     </p>
-                    </div>
+                  </div>
                 </div>
-                </div>
+              </div>
             </div>
-            </section>
+          </section>
         </div>
-        )}
+      )}
 
-            {/* Section overlay */}
-                {activeSection && (
-                    <div
-                    ref={overlayRef}
-                    onWheel={e => e.stopPropagation()}
-                    onTouchMove={e => e.stopPropagation()}
-                    style={{
-                        position: "fixed",
-                        top: "calc(var(--topnav-height, 80px) + 64px)",
-                        left: 0,
-                        width: "100vw",
-                        height: "calc(100vh - var(--topnav-height, 80px) - 48px)",
-                        zIndex: 50,
-                        overflowY: "scroll",
-                        padding: "48px",
-                        scrollbarWidth: "none" as any,
-                        msOverflowStyle: "none" as any,
-                    }}
-                    >
-            <div 
+      {/* Section overlay */}
+      {activeSection && (
+        <div
+          ref={overlayRef}
+          onWheel={e => e.stopPropagation()}
+          onTouchMove={e => e.stopPropagation()}
+          style={{
+            position: "fixed",
+            top: "calc(var(--topnav-height, 80px) + 64px)",
+            left: 0,
+            width: "100vw",
+            height: "calc(100vh - var(--topnav-height, 80px) - 48px)",
+            zIndex: 50,
+            overflowY: "scroll",
+            padding: "48px",
+            scrollbarWidth: "none" as any,
+            msOverflowStyle: "none" as any,
+          }}
+        >
+          <div
             className="px-6 md:px-0"
-            style={{ maxWidth: "clamp(20rem, 80vw, 44rem)", margin: "0 auto", display: "flex", flexDirection: "column", gap: "4rem", paddingBottom: "calc(var(--topnav-height, 80px) + 64px)" }}>
+            style={{ maxWidth: "clamp(20rem, 80vw, 44rem)", margin: "0 auto", display: "flex", flexDirection: "column", gap: "4rem", paddingBottom: "calc(var(--topnav-height, 80px) + 64px)" }}
+          >
             {sectionItems[activeSection]?.map((item, i) => (
-                <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "clamp(1rem, 4vw, 4rem)" }}>
+              <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "clamp(1rem, 4vw, 4rem)" }}>
                 <button
-                    style={{
+                  style={{
                     WebkitBackfaceVisibility: "hidden",
                     backfaceVisibility: "hidden",
                     outline: "1px solid transparent",
@@ -464,18 +514,18 @@ useEffect(() => {
                     cursor: "default",
                     width: "fit-content",
                     flexShrink: 0,
-                    }}
+                  }}
                 >
-                    {item.year}
+                  {item.year}
                 </button>
                 <div style={{ display: "flex", flexDirection: "column" }}>
-                    {item.primary && <p style={{ color: "rgba(255,255,255,1)", fontSize: "clamp(1.2rem, 4vw, 2rem)", lineHeight: 1.1 }}>{widont(item.primary)}</p>}
-                    {item.secondary && <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "clamp(0.9rem, 2.5vw, 1.5rem)", lineHeight: 1.4 }}>{widont(item.secondary)}</p>}
-                    {item.meta && <p style={{ color: "rgba(255,255,255,0.3)", fontSize: "clamp(0.9rem, 2.5vw, 1.5rem)", lineHeight: 1.4 }}>{widont(item.meta)}</p>}
+                  {item.primary && <p style={{ color: "rgba(255,255,255,1)", fontSize: "clamp(1.2rem, 4vw, 2rem)", lineHeight: 1.1 }}>{widont(item.primary)}</p>}
+                  {item.secondary && <p style={{ color: "rgba(255,255,255,0.4)", fontSize: "clamp(0.9rem, 2.5vw, 1.5rem)", lineHeight: 1.4 }}>{widont(item.secondary)}</p>}
+                  {item.meta && <p style={{ color: "rgba(255,255,255,0.3)", fontSize: "clamp(0.9rem, 2.5vw, 1.5rem)", lineHeight: 1.4 }}>{widont(item.meta)}</p>}
                 </div>
-                </div>
+              </div>
             ))}
-            </div>
+          </div>
         </div>
       )}
 

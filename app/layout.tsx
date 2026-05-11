@@ -7,6 +7,11 @@ import SidePanel from "@/components/layout/sidepanel"
 import PageTransition from "@/components/layout/PageTransition"
 import { SectionProvider } from "@/lib/context/SectionContext"
 import "./globals.css"
+import { Geist } from "next/font/google";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+
 
 export default function RootLayout({
   children,
@@ -14,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" suppressHydrationWarning>
+    <html lang="ko" suppressHydrationWarning className={cn("font-sans", geist.variable)}>
       <body>
         <Script
           id="adobe-fonts"
