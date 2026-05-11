@@ -63,7 +63,15 @@ export default function BottomNav() {
   const topNavRef = useRef<HTMLDivElement>(null)
   const [temp, setTemp] = useState<string | null>(null)
   const [time, setTime] = useState<string>("")
+  const [isMobile, setIsMobile] = useState(false)
   const moon = getMoonPhase()
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768)
+    check()
+    window.addEventListener("resize", check)
+    return () => window.removeEventListener("resize", check)
+  }, [])
 
   useEffect(() => {
     const update = () => {
@@ -120,33 +128,55 @@ export default function BottomNav() {
       {/* Top — About + Seoul info + Music */}
       <div
         ref={topNavRef}
-        className="fixed top-0 left-0 right-0 flex items-center justify-between px-8 pt-6 pb-3"
-        style={{ zIndex: 202, opacity, pointerEvents: opacity > 0.5 ? "auto" : "none" }}
+        className="fixed top-0 left-0 right-0 px-8 pt-6 pb-3"
+        style={{
+          zIndex: 202,
+          opacity,
+          pointerEvents: opacity > 0.5 ? "auto" : "none",
+          display: "grid",
+          gridTemplateColumns: "1fr auto 1fr",
+          alignItems: "center",
+        }}
       >
-        <NavButton item={navItems[0]} isActive={activeSection === navItems[0].id} onClick={() => handleClick(navItems[0])} />
+        <div style={{ display: "flex", justifyContent: "flex-start" }}>
+          <NavButton item={navItems[0]} isActive={activeSection === navItems[0].id} onClick={() => handleClick(navItems[0])} />
+        </div>
 
         {/* Centre — moon + temp + time */}
         <div style={{
           display: "flex",
+          flexDirection: isMobile ? "column" : "row",
           alignItems: "center",
-          gap: "6px",
+          gap: isMobile ? "2px" : "6px",
           pointerEvents: "none",
           userSelect: "none",
-          fontSize: "clamp(0.7rem, 1.2vw, 0.8rem)",
+          fontSize: "clamp(0.6rem, 1.2vw, 0.8rem)",
           letterSpacing: "0.1em",
           color: "rgba(255,255,255,0.35)",
           fontFamily: '"pyeonghwa", sans-serif',
+          textAlign: "center",
         }}>
-          <span>{moon.emoji} {moon.name}</span>
-          <span style={{ color: "rgba(255,255,255,0.2)" }}>·</span>
-          <span>Seoul</span>
-          <span style={{ color: "rgba(255,255,255,0.2)" }}>·</span>
-          <span>{temp ?? "—"}</span>
-          <span style={{ color: "rgba(255,255,255,0.2)" }}>·</span>
-          <span>{time} KST</span>
+          {isMobile ? (
+            <>
+              <span>{moon.emoji} {moon.name}</span>
+              <span>{temp ?? "—"} · Seoul · {time} KST</span>
+            </>
+          ) : (
+            <>
+              <span>{moon.emoji} {moon.name}</span>
+              <span style={{ color: "rgba(255,255,255,0.2)" }}>·</span>
+              <span>Seoul</span>
+              <span style={{ color: "rgba(255,255,255,0.2)" }}>·</span>
+              <span>{temp ?? "—"}</span>
+              <span style={{ color: "rgba(255,255,255,0.2)" }}>·</span>
+              <span>{time} KST</span>
+            </>
+          )}
         </div>
 
-        <NavButton item={navItems[1]} isActive={activeSection === navItems[1].id} onClick={() => handleClick(navItems[1])} />
+        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+          <NavButton item={navItems[1]} isActive={activeSection === navItems[1].id} onClick={() => handleClick(navItems[1])} />
+        </div>
       </div>
 
       {/* Bottom — Works + Credits + Books */}
@@ -155,17 +185,27 @@ export default function BottomNav() {
         style={{ zIndex: 202, opacity, pointerEvents: opacity > 0.5 ? "auto" : "none" }}
       >
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(180, 140, 60, 0.5) 0%, transparent 100%)", maskImage: "linear-gradient(to top, black 0%, transparent 100%)", WebkitMaskImage: "linear-gradient(to top, black 0%, transparent 100%)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", pointerEvents: "none", zIndex: 0 }} />
-        <div className="relative z-10 w-full flex items-center justify-between">
-          <div style={{ width: "8rem", display: "flex", justifyContent: "flex-start" }}>
-            <NavButton item={navItems[2]} isActive={activeSection === navItems[2].id} onClick={() => handleClick(navItems[2])} />
+        <div className="relative z-10 w-full flex flex-col items-center gap-1">
+          <div className="w-full flex items-center justify-between">
+            <div style={{ width: "8rem", display: "flex", justifyContent: "flex-start" }}>
+              <NavButton item={navItems[2]} isActive={activeSection === navItems[2].id} onClick={() => handleClick(navItems[2])} />
+            </div>
+            <div style={{ pointerEvents: "none", display: isMobile ? "none" : "flex", alignItems: "center", gap: "6px" }}>
+              <span style={{ fontSize: "clamp(0.6rem, 1.2vw, 0.8rem)", color: "rgba(255,255,255,0.3)", letterSpacing: "0.05em" }}>© 2026 Lang Lee. All rights reserved.</span>
+              <span style={{ color: "rgba(255,255,255,0.15)" }}>·</span>
+              <span style={{ fontSize: "clamp(0.6rem, 1.2vw, 0.8rem)", color: "rgba(255,255,255,0.3)", letterSpacing: "0.05em" }}>info.langlee@gmail.com</span>
+            </div>
+            <div style={{ width: "8rem", display: "flex", justifyContent: "flex-end" }}>
+              <NavButton item={navItems[3]} isActive={activeSection === navItems[3].id} onClick={() => handleClick(navItems[3])} />
+            </div>
           </div>
-          <div className="flex flex-col items-center gap-1" style={{ pointerEvents: "none" }}>
-            <span className="text-sm text-white/30">© 2026 Lang Lee. All rights reserved.</span>
-            <span className="text-sm text-white/30">info.langlee@gmail.com</span>
-          </div>
-          <div style={{ width: "8rem", display: "flex", justifyContent: "flex-end" }}>
-            <NavButton item={navItems[3]} isActive={activeSection === navItems[3].id} onClick={() => handleClick(navItems[3])} />
-          </div>
+          {isMobile && (
+            <div style={{ pointerEvents: "none", display: "flex", alignItems: "center", gap: "6px" }}>
+              <span style={{ fontSize: "clamp(0.6rem, 1.2vw, 0.8rem)", color: "rgba(255,255,255,0.3)", letterSpacing: "0.05em" }}>© 2026 Lang Lee. All rights reserved.</span>
+              <span style={{ color: "rgba(255,255,255,0.15)" }}>·</span>
+              <span style={{ fontSize: "clamp(0.6rem, 1.2vw, 0.8rem)", color: "rgba(255,255,255,0.3)", letterSpacing: "0.05em" }}>info.langlee@gmail.com</span>
+            </div>
+          )}
         </div>
       </div>
     </>
